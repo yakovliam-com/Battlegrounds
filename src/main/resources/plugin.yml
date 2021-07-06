@@ -1,0 +1,6 @@
+main: com.yakovliam.battlegrounds.BattlegroundsPlugin
+name: Battlegrounds
+version: @version@
+description: Battlegrounds plugin
+author: yakovliam
+website: https://www.yakovliam.com.
