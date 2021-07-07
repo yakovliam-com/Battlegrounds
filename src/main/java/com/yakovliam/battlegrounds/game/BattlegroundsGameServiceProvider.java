@@ -67,7 +67,7 @@ public class BattlegroundsGameServiceProvider implements GameServiceProvider {
     public void startGame() {
         // switch game state
         this.switchGameState(GameState.STARTING);
-        // TODO initialize game by teleporting players, etc
+        // TODO initialize game by doing countdown, then teleporting players, etc
         // TODO new game object, etc
         // TODO do stuff
         this.switchGameState(GameState.IN_PROGRESS);
