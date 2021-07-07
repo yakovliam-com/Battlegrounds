@@ -1,4 +1,4 @@
-package com.yakovliam.battlegrounds.game.listener;
+package com.yakovliam.battlegrounds.game.event.listener;
 
 import com.yakovliam.battlegrounds.game.BattlegroundsGameServiceProvider;
 import org.bukkit.event.Listener;

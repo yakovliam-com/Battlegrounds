@@ -1,13 +1,14 @@
-package com.yakovliam.battlegrounds.game.listener;
+package com.yakovliam.battlegrounds.game.event.listener.waiting;
 
 import com.yakovliam.battlegrounds.calculator.JoinMessageCalculator;
+import com.yakovliam.battlegrounds.config.BattlegroundsConfigKeys;
 import com.yakovliam.battlegrounds.game.BattlegroundsGameServiceProvider;
+import com.yakovliam.battlegrounds.game.event.listener.ConnectionListener;
 import com.yakovliam.battlegrounds.util.Pair;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class ConnectionListener extends GameListener {
+public class WaitingConnectionListener extends ConnectionListener {
 
     /**
      * Game listener
@@ -16,19 +17,24 @@ public class ConnectionListener extends GameListener {
      *
      * @param battlegroundsGameServiceProvider battlegroundsGameServiceProvider
      */
-    public ConnectionListener(BattlegroundsGameServiceProvider battlegroundsGameServiceProvider) {
+    public WaitingConnectionListener(BattlegroundsGameServiceProvider battlegroundsGameServiceProvider) {
         super(battlegroundsGameServiceProvider);
     }
 
-    @EventHandler
+    @Override
     public void onPlayerJoin(PlayerJoinEvent event) {
         battlegroundsGameServiceProvider.getDisconnectedPlayers().remove(event.getPlayer().getUniqueId());
         battlegroundsGameServiceProvider.getActivePlayers().add(event.getPlayer().getUniqueId());
 
         event.joinMessage(new JoinMessageCalculator().calculate(new Pair<>(event.getPlayer(), battlegroundsGameServiceProvider)));
+
+        // if we've reached the required players to play, then start!
+        if (battlegroundsGameServiceProvider.getActivePlayers().size() >= BattlegroundsConfigKeys.REQUIRED_PLAYERS_TO_START) {
+            battlegroundsGameServiceProvider.startGame();
+        }
     }
 
-    @EventHandler
+    @Override
     public void onPlayerQuit(PlayerQuitEvent event) {
         battlegroundsGameServiceProvider.getDisconnectedPlayers().add(event.getPlayer().getUniqueId());
         battlegroundsGameServiceProvider.getActivePlayers().remove(event.getPlayer().getUniqueId());

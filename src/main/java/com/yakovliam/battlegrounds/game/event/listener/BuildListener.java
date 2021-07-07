@@ -1,11 +1,10 @@
-package com.yakovliam.battlegrounds.game.listener;
+package com.yakovliam.battlegrounds.game.event.listener;
 
 import com.yakovliam.battlegrounds.game.BattlegroundsGameServiceProvider;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class BuildListener extends GameListener {
+public abstract class BuildListener extends EventListener {
 
     /**
      * Game listener
@@ -18,12 +17,7 @@ public class BuildListener extends GameListener {
         super(battlegroundsGameServiceProvider);
     }
 
-    @EventHandler
-    public void onBlockBreak(BlockBreakEvent event) {
-        event.setCancelled(true);
-    }
+    public abstract void onBlockBreak(BlockBreakEvent event);
 
-    @EventHandler
-    public void onBlockPlace(BlockPlaceEvent event) {
-    }
+    public abstract void onBlockPlace(BlockPlaceEvent event);
 }

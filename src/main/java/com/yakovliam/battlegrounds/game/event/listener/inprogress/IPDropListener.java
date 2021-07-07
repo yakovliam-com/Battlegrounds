@@ -1,10 +1,10 @@
-package com.yakovliam.battlegrounds.game.listener;
+package com.yakovliam.battlegrounds.game.event.listener.inprogress;
 
 import com.yakovliam.battlegrounds.game.BattlegroundsGameServiceProvider;
-import org.bukkit.event.EventHandler;
+import com.yakovliam.battlegrounds.game.event.listener.DropListener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
-public class DropListener extends GameListener {
+public class IPDropListener extends DropListener {
 
     /**
      * Game listener
@@ -13,13 +13,11 @@ public class DropListener extends GameListener {
      *
      * @param battlegroundsGameServiceProvider battlegroundsGameServiceProvider
      */
-    public DropListener(BattlegroundsGameServiceProvider battlegroundsGameServiceProvider) {
+    public IPDropListener(BattlegroundsGameServiceProvider battlegroundsGameServiceProvider) {
         super(battlegroundsGameServiceProvider);
     }
 
-    @EventHandler
+    @Override
     public void onPlayerDropItem(PlayerDropItemEvent event) {
-        // cancel
-        event.setCancelled(true);
     }
 }
