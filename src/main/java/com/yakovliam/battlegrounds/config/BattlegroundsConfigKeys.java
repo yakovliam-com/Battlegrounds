@@ -1,11 +1,23 @@
 package com.yakovliam.battlegrounds.config;
 
-// TODO to be replaced with a system similar to spacechat's current system
+import com.yakovliam.battlegrounds.config.generic.KeyedConfiguration;
+import com.yakovliam.battlegrounds.config.generic.key.ConfigKey;
+import com.yakovliam.battlegrounds.config.generic.key.SimpleConfigKey;
+
+import java.util.List;
+
+import static com.yakovliam.battlegrounds.config.generic.key.ConfigKeyFactory.key;
+
 public class BattlegroundsConfigKeys {
 
     /**
-     * TODO
-     * This is arbitrary for now
+     * The required # of players to start the game
      */
-    public static int REQUIRED_PLAYERS_TO_START = 10;
+    public static final ConfigKey<Integer> REQUIRED_PLAYERS_TO_START = key(c -> c.getInteger("game.required-players-to-start", 10));
+
+    private static final List<SimpleConfigKey<?>> KEYS = KeyedConfiguration.initialise(BattlegroundsConfigKeys.class);
+
+    public static List<? extends ConfigKey<?>> getKeys() {
+        return KEYS;
+    }
 }
