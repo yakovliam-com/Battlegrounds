@@ -1,7 +1,7 @@
 package com.yakovliam.battlegrounds.calculator;
 
-import com.yakovliam.battlegrounds.random.RandomCollection;
-import com.yakovliam.battlegrounds.random.WeightedItem;
+import com.yakovliam.battlegrounds.random.weighted.WeightedCollection;
+import com.yakovliam.battlegrounds.random.weighted.WeightedItem;
 import com.yakovliam.battlegrounds.serialization.location.WeightedLocationListDeserializer;
 import org.bukkit.Location;
 
@@ -15,11 +15,11 @@ public class RandomLobbyLocationCalculator implements Calculator<List<String>, L
         List<WeightedItem<Location>> weightedItems = new WeightedLocationListDeserializer().deserialize(context);
 
         // create random collection
-        RandomCollection<Location> randomCollection = new RandomCollection<>();
+        WeightedCollection<Location> weightedCollection = new WeightedCollection<>();
         for (WeightedItem<Location> weightedItem : weightedItems) {
-            randomCollection.add(weightedItem);
+            weightedCollection.add(weightedItem);
         }
 
-        return randomCollection.next();
+        return weightedCollection.next();
     }
 }

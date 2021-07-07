@@ -1,24 +1,24 @@
-package com.yakovliam.battlegrounds.random;
+package com.yakovliam.battlegrounds.random.weighted;
 
 import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class RandomCollection<E> {
+public class WeightedCollection<E> {
 
     private final NavigableMap<Double, E> map = new TreeMap<>();
     private final Random random;
     private double total = 0;
 
-    public RandomCollection() {
+    public WeightedCollection() {
         this(new Random());
     }
 
-    public RandomCollection(Random random) {
+    public WeightedCollection(Random random) {
         this.random = random;
     }
 
-    public RandomCollection<E> add(WeightedItem<E> item) {
+    public WeightedCollection<E> add(WeightedItem<E> item) {
         if (item.getWeight() <= 0) return this;
         total += item.getWeight();
         map.put(total, item.getItem());

@@ -1,6 +1,6 @@
 package com.yakovliam.battlegrounds.serialization.location;
 
-import com.yakovliam.battlegrounds.random.WeightedItem;
+import com.yakovliam.battlegrounds.random.weighted.WeightedItem;
 import com.yakovliam.battlegrounds.serialization.Deserializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

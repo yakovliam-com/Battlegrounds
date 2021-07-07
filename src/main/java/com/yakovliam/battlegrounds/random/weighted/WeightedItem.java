@@ -1,4 +1,4 @@
-package com.yakovliam.battlegrounds.random;
+package com.yakovliam.battlegrounds.random.weighted;
 
 public class WeightedItem<E> {
 

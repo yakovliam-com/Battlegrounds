@@ -1,9 +1,20 @@
 game:
   required-players-to-start: 10
-  lobby:
-    spawn-locations:
-      - "spawn:0:0:0:0:0;1"
-      - "spawn:0:0:0:0:0;1"
-      - "spawn:0:0:0:0:0;1"
-      - "spawn:0:0:0:0:0;1"
-      - "spawn:0:0:0:0:0;1"
+  waiting:
+    lobby:
+      spawn-locations:
+        - "spawn:0:0:0:0:0;1"
+        - "spawn:0:0:0:0:0;1"
+        - "spawn:0:0:0:0:0;1"
+        - "spawn:0:0:0:0:0;1"
+        - "spawn:0:0:0:0:0;1"
+    random-tips:
+      tip1:
+        text:
+          - "&f&lTIP: &eKeep away from players who have stronger gear than you!"
+      tip2:
+        text:
+          - "&f&lTIP: &eThe most agile player can avoid confrontation!"
+      tip3:
+        text:
+          - "&f&lTIP: &eUse your available weapons to fight off adversaries &obefore &ethey get to more weapons!"

@@ -1,4 +1,4 @@
-package com.yakovliam.battlegrounds.message;
+package com.yakovliam.battlegrounds.api.message;
 
 import com.google.common.base.Joiner;
 import com.yakovliam.battlegrounds.BattlegroundsPlugin;

@@ -4,9 +4,6 @@ import com.yakovliam.battlegrounds.calculator.RandomLobbyLocationCalculator;
 import com.yakovliam.battlegrounds.config.generic.KeyedConfiguration;
 import com.yakovliam.battlegrounds.config.generic.key.ConfigKey;
 import com.yakovliam.battlegrounds.config.generic.key.SimpleConfigKey;
-import com.yakovliam.battlegrounds.random.RandomCollection;
-import com.yakovliam.battlegrounds.random.WeightedItem;
-import com.yakovliam.battlegrounds.serialization.location.WeightedLocationListDeserializer;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -25,7 +22,7 @@ public class BattlegroundsConfigKeys {
      * Calculates and returns a random lobby spawn location
      */
     public static final ConfigKey<Location> RANDOM_LOBBY_SPAWN_LOCATION = key(c -> {
-        List<String> serializedSpawnLocations = c.getStringList("game.lobby.spawn-locations", new ArrayList<>());
+        List<String> serializedSpawnLocations = c.getStringList("game.waiting.lobby.spawn-locations", new ArrayList<>());
         if (serializedSpawnLocations.isEmpty()) {
             return null;
         }
