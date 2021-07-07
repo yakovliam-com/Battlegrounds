@@ -1,13 +1,15 @@
 package com.yakovliam.battlegrounds.game.event;
 
 import com.yakovliam.battlegrounds.game.BattlegroundsGameServiceProvider;
+import com.yakovliam.battlegrounds.game.GameFeatureController;
 import com.yakovliam.battlegrounds.game.event.listener.ListenerController;
 import com.yakovliam.battlegrounds.game.event.listener.inprogress.IPListenerController;
 import com.yakovliam.battlegrounds.game.event.listener.waiting.WaitingListenerController;
 import com.yakovliam.battlegrounds.state.GameState;
+import com.yakovliam.battlegrounds.state.GameStateMovementEvent;
 import org.bukkit.event.HandlerList;
 
-public class EventController {
+public class EventController implements GameFeatureController {
 
     /**
      * The current controller
@@ -31,25 +33,34 @@ public class EventController {
     /**
      * Switches the game state and registers the corresponding listener controller
      *
-     * @param current current game state (new)
+     * @param event event
      */
-    public void switchGameState(GameState current) {
+    @Override
+    public void switchGameState(GameStateMovementEvent event) {
+        GameState current = event.getCurrent();
+
         if (controller != null) {
             // un-register controller
             HandlerList.unregisterAll(controller);
         }
 
         // re-register
-        ListenerController listenerController = determineController(current);
+        this.controller = determineController(current);
 
         // if null, don't re-register
-        if (listenerController == null) {
+        if (controller == null) {
             return;
         }
 
-        battlegroundsGameServiceProvider.getPlugin().getServer().getPluginManager().registerEvents(listenerController, battlegroundsGameServiceProvider.getPlugin());
+        battlegroundsGameServiceProvider.getPlugin().getServer().getPluginManager().registerEvents(controller, battlegroundsGameServiceProvider.getPlugin());
     }
 
+    /**
+     * Determines the new controller
+     *
+     * @param gameState game state
+     * @return controller
+     */
     private ListenerController determineController(GameState gameState) {
         return switch (gameState) {
             case WAITING_FOR_PLAYERS -> new WaitingListenerController(battlegroundsGameServiceProvider);
@@ -57,6 +68,4 @@ public class EventController {
             default -> null;
         };
     }
-
-
 }

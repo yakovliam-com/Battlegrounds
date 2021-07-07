@@ -3,7 +3,9 @@ package com.yakovliam.battlegrounds.game;
 import com.yakovliam.battlegrounds.BattlegroundsPlugin;
 import com.yakovliam.battlegrounds.bootstrap.GameBootstrapper;
 import com.yakovliam.battlegrounds.game.event.EventController;
+import com.yakovliam.battlegrounds.game.task.TaskController;
 import com.yakovliam.battlegrounds.state.GameState;
+import com.yakovliam.battlegrounds.state.GameStateMovementEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +39,11 @@ public class BattlegroundsGameServiceProvider implements GameServiceProvider {
     private final EventController eventController;
 
     /**
+     * Task controller
+     */
+    private final TaskController taskController;
+
+    /**
      * Battlegrounds game provider
      *
      * @param plugin plugin
@@ -47,6 +54,7 @@ public class BattlegroundsGameServiceProvider implements GameServiceProvider {
         this.activePlayers = new HashSet<>();
 
         this.eventController = new EventController(this);
+        this.taskController = new TaskController(this);
 
         // initialize the game by setting the state to it's default
         // TODO maybe use the method we made to fire the event controller? not sure
@@ -81,12 +89,18 @@ public class BattlegroundsGameServiceProvider implements GameServiceProvider {
     /**
      * Switches the game state
      *
-     * @param gameState game state
+     * @param current game state
      */
-    public void switchGameState(GameState gameState) {
-        this.state = gameState;
+    public void switchGameState(GameState current) {
+        // create movement event
+        GameStateMovementEvent event = new GameStateMovementEvent(this.state, current);
+
+        this.state = current;
+
         // fire event controller
-        this.eventController.switchGameState(state);
+        this.eventController.switchGameState(event);
+        // fire task controller
+        this.taskController.switchGameState(event);
     }
 
     /**

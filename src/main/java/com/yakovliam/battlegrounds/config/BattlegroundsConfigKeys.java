@@ -1,9 +1,13 @@
 package com.yakovliam.battlegrounds.config;
 
+import com.yakovliam.battlegrounds.builder.WaitingBroadcastListBuilder;
 import com.yakovliam.battlegrounds.calculator.RandomLobbyLocationCalculator;
+import com.yakovliam.battlegrounds.calculator.RandomWaitingBroadcastMessageCalculator;
 import com.yakovliam.battlegrounds.config.generic.KeyedConfiguration;
 import com.yakovliam.battlegrounds.config.generic.key.ConfigKey;
 import com.yakovliam.battlegrounds.config.generic.key.SimpleConfigKey;
+import com.yakovliam.battlegrounds.message.Message;
+import com.yakovliam.battlegrounds.util.Pair;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -28,6 +32,13 @@ public class BattlegroundsConfigKeys {
         }
 
         return new RandomLobbyLocationCalculator().calculate(serializedSpawnLocations);
+    });
+
+    public static final ConfigKey<Message> RANDOM_WAITING_BROADCAST_MESSAGE = key(c -> {
+        // build messages list
+        List<Message> messages = new WaitingBroadcastListBuilder().build(new Pair<>(c, "game.waiting.random-tips"));
+        // calculate random
+        return new RandomWaitingBroadcastMessageCalculator().calculate(messages);
     });
 
     private static final List<SimpleConfigKey<?>> KEYS = KeyedConfiguration.initialise(BattlegroundsConfigKeys.class);
